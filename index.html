@@ -1,0 +1,2478 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIP Experience • Sandrita ✨</title>
+
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Una invitación especial para Sandrita...">
+    <meta property="og:description" content="Experiencia VIP Interactiva creada por Josman.">
+    <meta property="og:type" content="website">
+
+    <!-- PWA & Mobile Web App Native Settings -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="VIP Sandrita">
+    <meta name="theme-color" content="#07050d">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23120e1e'/><text x='50' y='65' font-size='50' text-anchor='middle'>👑</text></svg>">
+
+    <!-- Web App Manifest for Android Chrome PWA Auto-Install -->
+    <link rel="manifest"
+        href="data:application/manifest+json,%7B%22name%22%3A%22VIP%20Sandrita%22%2C%22short_name%22%3A%22VIP%20Sandrita%22%2C%22start_url%22%3A%22index.html%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2307050d%22%2C%22theme_color%22%3A%22%2307050d%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Crect%20width%3D'100'%20height%3D'100'%20rx%3D'25'%20fill%3D'%23120e1e'%2F%3E%3Ctext%20x%3D'50'%20y%3D'65'%20font-size%3D'50'%20text-anchor%3D'middle'%3E%F0%9F%91%91%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* ==========================================================================
+           CINEMATIC LUXURY APP DESIGN SYSTEM
+           ========================================================================== */
+        :root {
+            --font-display: 'Cinzel', serif;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+
+            --bg-deep: #07050d;
+            --bg-glass: rgba(18, 14, 30, 0.78);
+            --bg-card: rgba(28, 22, 45, 0.7);
+
+            --gold-primary: #f3d082;
+            --gold-glow: rgba(243, 208, 130, 0.4);
+            --gold-gradient: linear-gradient(135deg, #ffe5a3 0%, #d4af37 50%, #aa7c11 100%);
+
+            --rose-accent: #ff4d79;
+            --rose-gradient: linear-gradient(135deg, #ff6584 0%, #ff4d79 50%, #c9184a 100%);
+
+            --text-main: #f8f6fc;
+            --text-sub: #b8b0ca;
+            --text-gold: #f3d082;
+
+            --border-glass: rgba(255, 229, 163, 0.22);
+            --shadow-app: 0 25px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg-deep);
+            font-family: var(--font-sans);
+            color: var(--text-main);
+        }
+
+        #meshCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .ambient-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 0;
+            animation: orbPulse 12s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #ff4d79;
+            top: -100px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 450px;
+            height: 450px;
+            background: #9b51e0;
+            bottom: -150px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        @keyframes orbPulse {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.15) translate(30px, 40px);
+            }
+        }
+
+        /* VIP LOCKSCREEN WITH NEBULA & CONSTELLATION */
+        .vip-lockscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 30%, rgba(32, 22, 58, 0.96) 0%, rgba(7, 5, 13, 0.98) 100%);
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+            overflow: hidden;
+            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nebula-glow-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 77, 121, 0.28) 0%, transparent 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            filter: blur(80px);
+            animation: nebulaPulse 10s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        .nebula-glow-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(243, 208, 130, 0.22) 0%, transparent 70%);
+            bottom: -150px;
+            right: -100px;
+            filter: blur(90px);
+            animation: nebulaPulse 12s ease-in-out infinite alternate-reverse;
+            pointer-events: none;
+        }
+
+        @keyframes nebulaPulse {
+            0% {
+                opacity: 0.4;
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                opacity: 0.85;
+                transform: scale(1.25) translate(30px, -20px);
+            }
+        }
+
+        .constellation-svg {
+            width: 100%;
+            max-width: 480px;
+            height: 85px;
+            margin-bottom: 0.6rem;
+            z-index: 2;
+            filter: drop-shadow(0 0 10px rgba(243, 208, 130, 0.7));
+        }
+
+        .vip-lockscreen.unlocked {
+            opacity: 0;
+            transform: scale(1.15);
+            pointer-events: none;
+        }
+
+        .lock-card-box {
+            position: relative;
+            z-index: 2;
+            background: rgba(18, 14, 30, 0.82);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--border-glass);
+            border-radius: 36px;
+            padding: 2.6rem 2rem;
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .lock-badge {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold-primary);
+            border: 1px solid var(--border-glass);
+            padding: 0.45rem 1.4rem;
+            border-radius: 40px;
+            background: rgba(243, 208, 130, 0.08);
+            margin-bottom: 2.2rem;
+        }
+
+        .lock-crown-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(243, 208, 130, 0.25) 0%, transparent 70%);
+            border: 2px solid var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            margin-bottom: 2.2rem;
+            box-shadow: 0 0 50px var(--gold-glow);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            animation: crownGlow 2.5s infinite ease-in-out;
+        }
+
+        .lock-crown-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 80px rgba(243, 208, 130, 0.7);
+        }
+
+        @keyframes crownGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(243, 208, 130, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 60px rgba(243, 208, 130, 0.6);
+            }
+        }
+
+        .lock-title {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: var(--gold-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .lock-sub {
+            font-size: 0.98rem;
+            color: var(--text-sub);
+            max-width: 420px;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-unlock-gold {
+            background: var(--gold-gradient);
+            color: #07050d;
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 1.1rem 3rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 12px 35px rgba(243, 208, 130, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-unlock-gold:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 45px rgba(243, 208, 130, 0.65);
+        }
+
+        /* APP VIEWPORT */
+        .app-viewport {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .app-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 5.5rem 1.2rem 7.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .app-slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .app-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid var(--border-glass);
+            border-radius: 36px;
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 580px;
+            text-align: center;
+            box-shadow: var(--shadow-app);
+            position: relative;
+        }
+
+        /* FLOATING BOTTOM NAV DOCK WITH LOCKED TAB STYLES */
+        .bottom-dock {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            gap: 0.35rem;
+            background: rgba(14, 10, 25, 0.92);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(20px);
+            padding: 0.5rem 0.6rem;
+            border-radius: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            max-width: 95vw;
+        }
+
+        .bottom-dock.show {
+            display: flex;
+            animation: dockSlideUp 0.6s ease forwards;
+        }
+
+        @keyframes dockSlideUp {
+            from {
+                transform: translateX(-50%) translateY(80px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .dock-item {
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            font-size: 1.15rem;
+            padding: 0.55rem 0.85rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            position: relative;
+        }
+
+        .dock-item span {
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .dock-item.active {
+            background: rgba(243, 208, 130, 0.18);
+            color: var(--gold-primary);
+        }
+
+        .dock-item.active span {
+            display: inline;
+        }
+
+        .dock-item.locked {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(80%);
+        }
+
+        .dock-item.locked::after {
+            content: "🔒";
+            font-size: 0.7rem;
+            position: absolute;
+            top: -2px;
+            right: 0px;
+        }
+
+        /* Frosted Glass Top Header Bar */
+        .header-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 62px;
+            padding: 0 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(7, 5, 13, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 229, 163, 0.15);
+            z-index: 10000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .app-brand {
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(14, 10, 25, 0.8);
+            border: 1px solid var(--border-glass);
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .vinyl-widget {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(14, 10, 25, 0.85);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: blur(16px);
+            padding: 0.4rem 1rem 0.4rem 0.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .vinyl-disc {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #222 25%, #111 30%, #333 45%, #000 100%);
+            border: 2px solid var(--gold-primary);
+            position: relative;
+        }
+
+        .vinyl-widget.playing .vinyl-disc {
+            animation: spinVinyl 3.5s linear infinite;
+        }
+
+        @keyframes spinVinyl {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* HERO & BUTTONS */
+        .location-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(243, 208, 130, 0.08);
+            border: 1px solid rgba(243, 208, 130, 0.25);
+            color: var(--gold-primary);
+            padding: 0.45rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.8rem;
+        }
+
+        .intro-lead {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--text-sub);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 2.1rem;
+            line-height: 1.35;
+            background: var(--gold-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.2rem;
+            min-height: 60px;
+            position: relative;
+        }
+
+        .btn-luxury {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 1.05rem 2.4rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-yes-luxury {
+            background: var(--rose-gradient);
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(255, 77, 121, 0.4);
+        }
+
+        .btn-yes-luxury:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 15px 40px rgba(255, 77, 121, 0.6);
+        }
+
+        .btn-no-luxury {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-sub);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-no-luxury.escaped {
+            position: fixed !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border-color: rgba(255, 77, 121, 0.5);
+            background: rgba(30, 24, 50, 0.95);
+            color: var(--rose-accent);
+            z-index: 9999;
+        }
+
+        /* Toast Popup */
+        .toast-luxury {
+            position: fixed;
+            bottom: 95px;
+            left: 50%;
+            transform: translateX(-50%) translateY(50px);
+            background: rgba(18, 14, 30, 0.95);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .toast-luxury.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* SCRATCH & TICKET WITH TOP-RIGHT CORNER QR CODE */
+        .scratch-box {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            height: 240px;
+            margin: 1.5rem auto 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-glass);
+        }
+
+        .hidden-card-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1f1833 0%, #151024 100%);
+            border-radius: 24px;
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .scratch-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            cursor: pointer;
+            transition: opacity 0.6s ease;
+        }
+
+        .scratch-canvas.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .vip-ticket {
+            display: none;
+            margin-top: 1.8rem;
+            background: linear-gradient(135deg, rgba(35, 28, 58, 0.95) 0%, rgba(20, 15, 35, 0.95) 100%);
+            border: 1px dashed var(--gold-primary);
+            border-radius: 24px;
+            padding: 1.6rem 1.5rem;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(255, 77, 121, 0.2);
+            animation: slideUpFade 0.7s ease forwards;
+        }
+
+        .vip-ticket.show {
+            display: block;
+        }
+
+        .ticket-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed rgba(243, 208, 130, 0.3);
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .ticket-header-text {
+            text-align: left;
+        }
+
+        .ticket-title-gold {
+            font-family: var(--font-display);
+            color: var(--gold-primary);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .ticket-sub-gold {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        .qr-corner-box {
+            width: 62px;
+            height: 62px;
+            background: #ffffff;
+            padding: 5px;
+            border-radius: 12px;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 6px 18px rgba(243, 208, 130, 0.35);
+            flex-shrink: 0;
+        }
+
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            text-align: left;
+            margin-bottom: 1.4rem;
+        }
+
+        .btn-download {
+            background: rgba(243, 208, 130, 0.12);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.6rem 1.4rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-download:hover {
+            background: var(--gold-primary);
+            color: #07050d;
+        }
+
+        /* LIVE EXPECTANCY COUNTDOWN CLOCK */
+        .countdown-box {
+            background: rgba(15, 12, 28, 0.8);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 1.2rem 1rem;
+            margin-top: 1.2rem;
+            text-align: center;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 0.6rem;
+        }
+
+        .clock-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(243, 208, 130, 0.08);
+            border: 1px solid rgba(243, 208, 130, 0.2);
+            padding: 0.6rem 0.9rem;
+            border-radius: 16px;
+            min-width: 65px;
+        }
+
+        .clock-val {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold-primary);
+        }
+
+        .clock-lbl {
+            font-size: 0.68rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        /* MAP & MUSIC */
+        .map-svg-container {
+            width: 100%;
+            height: 200px;
+            background: rgba(15, 12, 28, 0.85);
+            border-radius: 24px;
+            border: 1px solid var(--border-glass);
+            margin-top: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-box {
+            background: rgba(15, 12, 28, 0.7);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 1.2rem;
+            margin-top: 1.4rem;
+        }
+
+        .lyrics-line {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--gold-primary);
+            transition: opacity 0.4s ease;
+        }
+
+        /* ROULETTE & TORCH & VECTOR CARDS */
+        .roulette-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 1.5rem auto;
+        }
+
+        .roulette-wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--gold-primary);
+            transition: transform 4s cubic-bezier(0.15, 0.9, 0.2, 1);
+            background: conic-gradient(#ff4d79 0deg 60deg, #2a1f42 60deg 120deg, #d4af37 120deg 180deg,
+                    #9b51e0 180deg 240deg, #ff8c42 240deg 300deg, #e91e63 300deg 360deg);
+        }
+
+        .roulette-pointer {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 20px solid var(--gold-primary);
+            z-index: 10;
+        }
+
+        .btn-spin {
+            background: var(--gold-gradient);
+            color: #07050d;
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .torch-box {
+            position: relative;
+            width: 100%;
+            height: 170px;
+            margin-top: 1.2rem;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-glass);
+        }
+
+        .vector-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .vector-card {
+            background: rgba(15, 12, 28, 0.6);
+            border: 1px solid var(--border-glass);
+            border-radius: 18px;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .vector-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--gold-primary);
+        }
+
+        .vector-card svg {
+            width: 36px;
+            height: 36px;
+            fill: none;
+            stroke: var(--gold-primary);
+            stroke-width: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        .vector-card-text {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            line-height: 1.3;
+        }
+
+        .daily-thought-box {
+            background: rgba(255, 77, 121, 0.08);
+            border: 1px solid rgba(255, 77, 121, 0.25);
+            border-radius: 20px;
+            padding: 1.1rem;
+            margin-top: 1.2rem;
+        }
+
+        .btn-daily {
+            background: rgba(243, 208, 130, 0.15);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.55rem 1.3rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.8rem;
+        }
+
+        .btn-daily:hover {
+            background: var(--gold-primary);
+            color: #07050d;
+        }
+
+        /* DEDICATED APP INSTALL CARD & PWA GUIDANCE */
+        .app-icon-preview {
+            width: 90px;
+            height: 90px;
+            border-radius: 24px;
+            background: radial-gradient(circle, #2a1f42 0%, #120e1e 100%);
+            border: 2px solid var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            margin: 1.2rem auto;
+            box-shadow: 0 10px 30px var(--gold-glow);
+        }
+
+        .pwa-guide-box {
+            background: rgba(15, 12, 28, 0.85);
+            border: 1px dashed var(--gold-primary);
+            border-radius: 24px;
+            padding: 1.2rem 1.4rem;
+            margin-top: 1.4rem;
+            text-align: left;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        .pwa-guide-box strong {
+            color: var(--gold-primary);
+        }
+
+        .btn-install-big {
+            background: var(--gold-gradient);
+            color: #07050d;
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 1.1rem 2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            box-shadow: 0 10px 30px rgba(243, 208, 130, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-install-big:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(243, 208, 130, 0.6);
+        }
+
+        /* SLIDE 5: ENVELOPE & WHATSAPP PLANNER */
+        .envelope-3d-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            height: 200px;
+            margin: 1.5rem auto 0 auto;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .envelope-body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #2a2142;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-glass);
+        }
+
+        .envelope-top-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #382c57;
+            transform-origin: top center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 4;
+        }
+
+        .wax-seal-gold {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 46px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #07050d;
+            font-size: 1.2rem;
+            z-index: 5;
+            transition: all 0.4s ease;
+        }
+
+        .envelope-pocket-front {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid #231a38;
+            border-right: 160px solid #231a38;
+            border-bottom: 110px solid #1a132b;
+            border-radius: 0 0 18px 18px;
+            z-index: 3;
+        }
+
+        .letter-content-paper {
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            width: 90%;
+            height: 160px;
+            background: #fdfaf6;
+            color: #1a132b;
+            border-radius: 12px;
+            padding: 1.4rem 1.2rem;
+            z-index: 2;
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-align: left;
+        }
+
+        .envelope-3d-wrapper.open .envelope-top-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-3d-wrapper.open .wax-seal-gold {
+            opacity: 0;
+            transform: translateX(-50%) scale(0);
+        }
+
+        .envelope-3d-wrapper.open .letter-content-paper {
+            transform: translateY(-120px);
+            z-index: 6;
+            height: auto;
+        }
+
+        .chips-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .luxury-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.85rem 1.1rem;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .luxury-chip.selected {
+            border-color: var(--rose-accent);
+            background: rgba(255, 77, 121, 0.12);
+        }
+
+        .btn-whatsapp-luxury {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: #ffffff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.35);
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* PERFECT RESPONSIVE DESIGN FOR ALL PHONES, TABLETS & PC */
+        @media (max-width: 600px) {
+            .app-slide {
+                padding: 4.8rem 0.7rem 7.5rem 0.7rem;
+                justify-content: flex-start;
+            }
+
+            .app-card {
+                padding: 1.6rem 1rem;
+                border-radius: 24px;
+                max-width: 100%;
+                margin-top: 0.4rem;
+            }
+
+            .lock-card-box {
+                padding: 1.8rem 1.1rem;
+                border-radius: 28px;
+                max-width: 100%;
+            }
+
+            .lock-title {
+                font-size: 1.65rem;
+            }
+
+            .lock-crown-button {
+                width: 90px;
+                height: 90px;
+                font-size: 2.6rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .lock-badge {
+                font-size: 0.7rem;
+                padding: 0.35rem 1rem;
+                margin-bottom: 1.4rem;
+            }
+
+            .lock-sub {
+                font-size: 0.88rem;
+                margin-bottom: 1.6rem;
+            }
+
+            .btn-unlock-gold {
+                padding: 0.9rem 2rem;
+                font-size: 0.95rem;
+            }
+
+            .hero-title {
+                font-size: 1.4rem;
+                margin-bottom: 1.6rem;
+            }
+
+            .intro-lead {
+                font-size: 1rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .btn-luxury {
+                padding: 0.85rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .btn-group {
+                gap: 0.8rem;
+            }
+
+            .scratch-box {
+                height: 200px;
+                margin-top: 1rem;
+            }
+
+            .hidden-card-content {
+                padding: 1.2rem 1rem;
+            }
+
+            .hidden-card-content p {
+                font-size: 0.95rem !important;
+                line-height: 1.5 !important;
+            }
+
+            .ticket-grid {
+                gap: 0.6rem;
+            }
+
+            .ticket-grid div {
+                font-size: 0.8rem;
+            }
+
+            .roulette-wrapper {
+                width: 180px;
+                height: 180px;
+                margin: 1rem auto;
+            }
+
+            .vector-grid {
+                gap: 0.5rem;
+            }
+
+            .vector-card {
+                padding: 0.7rem 0.3rem;
+            }
+
+            .vector-card-text {
+                font-size: 0.7rem;
+            }
+
+            .envelope-3d-wrapper {
+                max-width: 250px;
+                height: 160px;
+            }
+
+            .envelope-top-flap,
+            .envelope-pocket-front {
+                border-left-width: 125px;
+                border-right-width: 125px;
+            }
+
+            .letter-content-paper {
+                padding: 1rem 0.9rem;
+            }
+
+            .letter-content-paper p {
+                font-size: 0.85rem !important;
+                line-height: 1.4 !important;
+            }
+
+            .header-bar {
+                height: 54px;
+                padding: 0 0.8rem;
+            }
+
+            .app-brand {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.7rem;
+                letter-spacing: 1.5px;
+            }
+
+            .vinyl-widget {
+                padding: 0.3rem 0.65rem 0.3rem 0.4rem;
+            }
+
+            .vinyl-disc {
+                width: 24px;
+                height: 24px;
+            }
+
+            .bottom-dock {
+                bottom: 12px;
+                width: 96vw;
+                max-width: 420px;
+                padding: 0.3rem 0.2rem;
+                justify-content: space-around;
+                gap: 0;
+            }
+
+            .dock-item {
+                font-size: 0.92rem;
+                padding: 0.4rem 0.35rem;
+                flex: 1;
+                justify-content: center;
+            }
+
+            .dock-item span {
+                font-size: 0.68rem;
+                white-space: nowrap;
+            }
+
+            .constellation-svg {
+                height: 65px;
+            }
+
+            .map-svg-container {
+                height: 170px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .hero-title {
+                font-size: 1.3rem;
+            }
+
+            .lock-title {
+                font-size: 1.4rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-luxury {
+                width: 100%;
+            }
+
+            .vector-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 0. VIP LOCKSCREEN WITH VIOLET-GOLD NEBULA & SANDRITA CONSTELLATION -->
+    <div class="vip-lockscreen" id="lockScreen">
+        <div class="nebula-glow-1"></div>
+        <div class="nebula-glow-2"></div>
+
+        <!-- CONSTELLACIÓN ROMÁNTICA "SANDRITA" CON LETRAS 100% COMPLETAS -->
+        <svg class="constellation-svg" viewBox="0 0 460 90">
+            <!-- Constellation Lines connecting stars -->
+            <polyline points="35,50 90,30 145,58 200,30 255,60 310,30 365,55 420,32" fill="none"
+                stroke="rgba(243, 208, 130, 0.7)" stroke-width="2" stroke-dasharray="4 4" />
+
+            <!-- Star Nodes with Full Unclipped Gold Glowing Letters -->
+            <g transform="translate(35,50)">
+                <circle r="6" fill="#ff4d79" /><text y="-14" fill="#ffe5a3" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">S</text>
+            </g>
+            <g transform="translate(90,30)">
+                <circle r="6" fill="#f3d082" /><text y="-14" fill="#ffffff" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">A</text>
+            </g>
+            <g transform="translate(145,58)">
+                <circle r="6" fill="#ff4d79" /><text y="24" fill="#ffe5a3" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">N</text>
+            </g>
+            <g transform="translate(200,30)">
+                <circle r="6" fill="#f3d082" /><text y="-14" fill="#ffffff" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">D</text>
+            </g>
+            <g transform="translate(255,60)">
+                <circle r="6" fill="#ff4d79" /><text y="24" fill="#ffe5a3" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">R</text>
+            </g>
+            <g transform="translate(310,30)">
+                <circle r="6" fill="#f3d082" /><text y="-14" fill="#ffffff" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">I</text>
+            </g>
+            <g transform="translate(365,55)">
+                <circle r="6" fill="#ff4d79" /><text y="24" fill="#ffe5a3" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">T</text>
+            </g>
+            <g transform="translate(420,32)">
+                <circle r="6" fill="#f3d082" /><text y="-14" fill="#ffffff" font-family="Cinzel" font-size="17"
+                    font-weight="bold" text-anchor="middle">A</text>
+            </g>
+        </svg>
+
+        <div class="lock-card-box">
+            <div class="lock-badge">✨ EXCLUSIVO PARA SANDRITA ✨</div>
+            <div class="lock-crown-button" id="lockCrownBtn">👑</div>
+            <h1 class="lock-title">Invitación VIP Privada</h1>
+            <p class="lock-sub">He preparado una experiencia especial para ti. Toca el sello dorado para comenzar:</p>
+            <button class="btn-unlock-gold" id="btnUnlock">Tocar para Desbloquear 🔑</button>
+        </div>
+    </div>
+
+    <!-- 3D Mesh Canvas Background -->
+    <canvas id="meshCanvas"></canvas>
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <!-- Header Control Bar -->
+    <header class="header-bar">
+        <div class="app-brand">JL • VIP</div>
+
+        <div class="header-right">
+            <div class="vinyl-widget" id="vinylWidget">
+                <div class="vinyl-disc"></div>
+                <span style="font-size: 0.78rem; font-weight: 600; color: var(--gold-primary);" id="vinylState">Música
+                    🎵</span>
+            </div>
+        </div>
+    </header>
+
+    <audio id="bgAudio" loop preload="auto">
+        <source src="music/creo%20en%20ty.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- FULLSCREEN APP VIEWPORT -->
+    <div class="app-viewport">
+
+        <!-- SLIDE 1: LA PROPUESTA -->
+        <section class="app-slide active" id="slide1">
+            <div class="app-card">
+                <div class="location-pill">📍 Piura ↔ Chiclayo (~209 km)</div>
+                <div style="font-size: 2.2rem; margin-bottom: 1rem;">✨</div>
+
+                <p class="intro-lead">
+                    "Hola, <strong>Sandrita</strong>. Estamos en ciudades distintas, pero no quería dejar pasar la
+                    oportunidad de preguntarte algo..."
+                </p>
+
+                <h1 class="hero-title">
+                    ¿Aceptas salir conmigo la próxima vez que nos veamos?
+                </h1>
+
+                <div class="btn-group">
+                    <button class="btn-luxury btn-yes-luxury" id="btnYes">¡Sí, claro!</button>
+                    <button class="btn-luxury btn-no-luxury" id="btnNo">No</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: SCRATCH CARD & VIP TICKET WITH TOP-RIGHT CORNER QR -->
+        <section class="app-slide" id="slide2">
+            <div class="app-card">
+                <h2
+                    style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--gold-primary); font-style: italic;">
+                    ✨ ¡Excelente elección! Raspa la tarjeta para sellar la promesa... ✨
+                </h2>
+
+                <div class="scratch-box" id="scratchBox">
+                    <div class="hidden-card-content">
+                        <p style="font-family: var(--font-serif); font-size: 1.15rem; font-style: italic;">
+                            "¡Guardo evidencia de este 'Sí'! La próxima vez que yo vaya a Piura o tú vengas a Chiclayo,
+                            la primera salida corre por mi cuenta. Ya está prometido. 😉"
+                        </p>
+                        <div style="margin-top: 1.2rem; font-family: var(--font-display); color: var(--gold-primary);">
+                            Att: Josman</div>
+                    </div>
+                    <canvas class="scratch-canvas" id="scratchCanvas"></canvas>
+                </div>
+
+                <div class="vip-ticket" id="vipTicket">
+                    <!-- TICKET HEADER WITH COMPACT TOP-RIGHT CORNER QR CODE -->
+                    <div class="ticket-header-row">
+                        <div class="ticket-header-text">
+                            <div class="ticket-title-gold">🎟️ VIP BOARDING PASS</div>
+                            <div class="ticket-sub-gold">EDICIÓN ESPECIAL</div>
+                        </div>
+
+                        <div class="qr-corner-box">
+                            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                                <rect width="100" height="100" fill="#ffffff" />
+                                <rect x="8" y="8" width="28" height="28" fill="#120e1e" />
+                                <rect x="14" y="14" width="16" height="16" fill="#ffffff" />
+                                <rect x="18" y="18" width="8" height="8" fill="#d4af37" />
+
+                                <rect x="64" y="8" width="28" height="28" fill="#120e1e" />
+                                <rect x="70" y="14" width="16" height="16" fill="#ffffff" />
+                                <rect x="74" y="18" width="8" height="8" fill="#d4af37" />
+
+                                <rect x="8" y="64" width="28" height="28" fill="#120e1e" />
+                                <rect x="14" y="70" width="16" height="16" fill="#ffffff" />
+                                <rect x="18" y="74" width="8" height="8" fill="#d4af37" />
+
+                                <rect x="42" y="12" width="6" height="16" fill="#120e1e" />
+                                <rect x="48" y="32" width="12" height="6" fill="#120e1e" />
+                                <rect x="12" y="42" width="20" height="6" fill="#120e1e" />
+                                <rect x="40" y="42" width="20" height="16" fill="#d4af37" />
+                                <rect x="66" y="42" width="22" height="6" fill="#120e1e" />
+                                <rect x="42" y="64" width="16" height="8" fill="#120e1e" />
+                                <rect x="64" y="64" width="8" height="24" fill="#120e1e" />
+                                <rect x="76" y="76" width="12" height="12" fill="#d4af37" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="ticket-grid">
+                        <div>
+                            <div style="font-size: 0.72rem; color: var(--text-sub); text-transform: uppercase;">Ruta
+                            </div>
+                            <div style="font-weight: 600;">Piura ↔ Chiclayo</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.72rem; color: var(--text-sub); text-transform: uppercase;">
+                                Anfitrión</div>
+                            <div style="font-weight: 600;">Josman</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.72rem; color: var(--text-sub); text-transform: uppercase;">Estado
+                            </div>
+                            <div style="font-weight: 600; color: var(--rose-accent);">Confirmado ✨</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 0.72rem; color: var(--text-sub); text-transform: uppercase;">Código
+                                VIP</div>
+                            <div style="font-weight: 600;">#JL-2026-VIP</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-download" id="btnDownloadTicket">📥 Guardar Ticket en mi Galería</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: MAPA DE LA RUTA & RELOJ DE EXPECTATIVA -->
+        <section class="app-slide" id="slide3">
+            <div class="app-card">
+                <h2 style="font-family: var(--font-display); color: var(--gold-primary); font-size: 1.35rem;">🗺️ La
+                    Ruta de Nuestro Reencuentro</h2>
+                <p style="color: var(--text-sub); font-size: 0.88rem; margin-top: 0.3rem;">~209 km nos separan, pero las
+                    ganas de vernos acortan la distancia:</p>
+
+                <div class="map-svg-container" id="mapSvgClick">
+                    <svg width="100%" height="100%" viewBox="0 0 440 200" style="position: absolute; top:0; left:0;">
+                        <path id="routePath" d="M 90 50 Q 220 130 350 150" fill="none" stroke="rgba(243, 208, 130, 0.4)"
+                            stroke-width="4" stroke-dasharray="8 8" />
+                        <circle cx="90" cy="50" r="8" fill="#ff4d79" />
+                        <text x="90" y="30" fill="#f8f6fc" font-family="Cinzel" font-size="13" font-weight="bold"
+                            text-anchor="middle">PIURA</text>
+                        <circle cx="350" cy="150" r="8" fill="#f3d082" />
+                        <text x="350" y="180" fill="#f8f6fc" font-family="Cinzel" font-size="13" font-weight="bold"
+                            text-anchor="middle">CHICLAYO</text>
+                        <g id="travelHeart"><text x="0" y="0" font-size="18" text-anchor="middle"
+                                dominant-baseline="middle">💖</text></g>
+                    </svg>
+                </div>
+
+                <!-- RELOJ DE EXPECTATIVA EN VIVO -->
+                <div class="countdown-box">
+                    <div
+                        style="font-size: 0.8rem; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 1px;">
+                        ⏱️ Tiempo de Expectativa para Verte
+                    </div>
+                    <div class="countdown-grid">
+                        <div class="clock-item">
+                            <span class="clock-val" id="clockHrs">00</span>
+                            <span class="clock-lbl">Horas</span>
+                        </div>
+                        <div class="clock-item">
+                            <span class="clock-val" id="clockMin">00</span>
+                            <span class="clock-lbl">Minutos</span>
+                        </div>
+                        <div class="clock-item">
+                            <span class="clock-val" id="clockSec">00</span>
+                            <span class="clock-lbl">Segundos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="player-box">
+                    <div
+                        style="font-size: 0.82rem; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.4rem;">
+                        🎧 Creo en Ti - Reik</div>
+                    <div class="lyrics-line" id="lyricsLine">"Creo en ti y en este amor que nació de la nada..."</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: RULETA, LINTERNA & ARTE VECTORIAL -->
+        <section class="app-slide" id="slide4">
+            <div class="app-card">
+                <h2 style="font-family: var(--font-display); color: var(--gold-primary); font-size: 1.35rem;">🎰 Ruleta
+                    & Sorpresas</h2>
+                <p style="color: var(--text-sub); font-size: 0.88rem; margin-top: 0.3rem;">Gira la ruleta y desliza para
+                    ver tu sorpresa:</p>
+
+                <div class="roulette-wrapper">
+                    <div class="roulette-pointer"></div>
+                    <div class="roulette-wheel" id="rouletteWheel"></div>
+                </div>
+
+                <button class="btn-spin" id="btnSpin">¡Girar Ruleta! 🎲</button>
+
+                <div class="vector-grid">
+                    <div class="vector-card">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" />
+                        </svg>
+                        <div class="vector-card-text">Un café bonito y plática sin fin</div>
+                    </div>
+                    <div class="vector-card">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 22h8M12 17v5M7 2h10l-2 8a3 3 0 0 1-6 0L7 2z" />
+                        </svg>
+                        <div class="vector-card-text">Un brindis por el reencuentro</div>
+                    </div>
+                    <div class="vector-card">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.3 1L2 12v4c0 .6.4 1 1 1h2M7 17a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+                        </svg>
+                        <div class="vector-card-text">El viaje que acorta distancias</div>
+                    </div>
+                </div>
+
+                <div class="daily-thought-box">
+                    <button class="btn-daily" id="btnDailyThought">✨ Mensaje del Día para Sandrita</button>
+                    <div style="font-family: var(--font-serif); font-style: italic; font-size: 1rem; color: var(--gold-primary);"
+                        id="dailyThoughtText">
+                        "Toca el botón arriba para ver tu pensamiento especial..."
+                    </div>
+                </div>
+
+                <div class="torch-box" id="torchBox">
+                    <canvas class="torch-canvas" id="torchCanvas"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: CARTA 3D & WHATSAPP PLANNER -->
+        <section class="app-slide" id="slide5">
+            <div class="app-card">
+                <h2 style="font-family: var(--font-display); color: var(--gold-primary); font-size: 1.35rem;">✉️ Tu
+                    Carta & Plan Ideal</h2>
+
+                <div class="envelope-3d-wrapper" id="envelopeWrapper">
+                    <div class="envelope-body">
+                        <div class="envelope-top-flap"></div>
+                        <div class="wax-seal-gold">👑</div>
+                        <div class="envelope-pocket-front"></div>
+                        <div class="letter-content-paper">
+                            <p
+                                style="font-family: var(--font-serif); font-style: italic; font-size: 1rem; line-height: 1.5;">
+                                "Entre Piura y Chiclayo hay kilómetros, pero ni la distancia apaga las ganas de
+                                compartir un gran momento contigo. Gracias por decir que sí. Nos vemos muy pronto. ✨"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chips-container">
+                    <div class="luxury-chip" data-plan="☕ Café bonito y charla sin fin">
+                        <span>☕ Café bonito y charla sin fin</span>
+                    </div>
+                    <div class="luxury-chip" data-plan="🍷 Cena romántica y buena comida">
+                        <span>🍷 Cena romántica y buena comida</span>
+                    </div>
+                    <div class="luxury-chip" data-plan="🍦 Helados y caminata por la ciudad">
+                        <span>🍦 Helados y caminata por la ciudad</span>
+                    </div>
+                    <div class="luxury-chip" data-plan="🎬 Cine + Postre delicioso">
+                        <span>🎬 Cine + Postre delicioso</span>
+                    </div>
+                </div>
+
+                <a href="#" class="btn-whatsapp-luxury" id="btnWhatsapp" target="_blank">
+                    💬 Enviar mi plan ideal por WhatsApp
+                </a>
+            </div>
+        </section>
+
+        <!-- SLIDE 6: DEDICATED APP INSTALLATION CARD WITH 1-CLICK COPY LINK -->
+        <section class="app-slide" id="slide6">
+            <div class="app-card">
+                <h2 style="font-family: var(--font-display); color: var(--gold-primary); font-size: 1.35rem;">📲 Guarda
+                    la App en tu Celular</h2>
+                <p style="color: var(--text-sub); font-size: 0.88rem; margin-top: 0.3rem;">Para entrar en un solo toque
+                    cuando quieras:</p>
+
+                <div class="app-icon-preview">👑</div>
+
+                <div
+                    style="font-family: var(--font-display); color: var(--gold-primary); font-size: 1.1rem; margin-bottom: 0.4rem;">
+                    VIP Sandrita
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-sub);">Edición Exclusiva por Josman</div>
+
+                <button class="btn-install-big" id="btnInstallSlide">
+                    📲 Instalar App VIP en mi Celular
+                </button>
+
+                <button class="btn-download" id="btnCopyLink" style="margin-top: 0.9rem;">
+                    📋 Copiar Enlace VIP de esta App
+                </button>
+
+                <div class="pwa-guide-box" id="pwaGuideBox">
+                    <strong>📱 Instrucciones de Guardado:</strong><br>
+                    • <strong>En Android (Chrome):</strong> Toca los 3 puntos arriba a la derecha <code>⋮</code> y elige
+                    <em>"Agregar a la pantalla principal"</em> o <em>"Instalar aplicación"</em>.<br>
+                    • <strong>En iPhone (Safari):</strong> Toca 📤 <em>Compartir</em> y elige <em>"Agregar a
+                        inicio"</em>.
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FLOATING DOCK NAVIGATION (6 TABS WITH PROGRESSIVE LOCK SYSTEM) -->
+    <nav class="bottom-dock" id="bottomDock">
+        <button class="dock-item active" data-slide="0">💌 <span>Propuesta</span></button>
+        <button class="dock-item locked" data-slide="1">🎟️ <span>Evidencia</span></button>
+        <button class="dock-item locked" data-slide="2">🗺️ <span>Ruta</span></button>
+        <button class="dock-item locked" data-slide="3">🎰 <span>Sorpresas</span></button>
+        <button class="dock-item locked" data-slide="4">💬 <span>Plan</span></button>
+        <button class="dock-item locked" data-slide="5">📱 <span>App</span></button>
+    </nav>
+
+    <!-- TOAST POPUP -->
+    <div class="toast-luxury" id="toastMsg">¡El 'No' no es una opción aquí! 😉</div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const CONFIG = {
+            whatsappNumber: "51987863943",
+            herName: "Sandrita"
+        };
+
+        const maxUnlockedSlide = [true, false, false, false, false, false];
+        let isStarShowerActive = false;
+
+        function unlockSlide(index) {
+            if (!maxUnlockedSlide[index]) {
+                maxUnlockedSlide[index] = true;
+                soundFX.init();
+                soundFX.playChime();
+
+                const dockItems = document.querySelectorAll('.dock-item');
+                if (dockItems[index]) {
+                    dockItems[index].classList.remove('locked');
+                }
+
+                toastMsg.textContent = "🔓 ¡Pestaña desbloqueada!";
+                toastMsg.classList.add('show');
+                setTimeout(() => toastMsg.classList.remove('show'), 2200);
+
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 60, spread: 60, origin: { y: 0.6 } });
+                }
+
+                if (maxUnlockedSlide.every(v => v === true)) {
+                    isStarShowerActive = true;
+                }
+            }
+        }
+
+        let deferredPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        async function triggerPWAInstall() {
+            soundFX.init();
+            soundFX.playChime();
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    toastMsg.textContent = "🎉 ¡App instalada en tu celular!";
+                    toastMsg.classList.add('show');
+                    setTimeout(() => toastMsg.classList.remove('show'), 3500);
+                }
+                deferredPrompt = null;
+            } else {
+                toastMsg.textContent = "📱 Toca ⋮ en Chrome y elige 'Agregar a pantalla principal'";
+                toastMsg.classList.add('show');
+                setTimeout(() => toastMsg.classList.remove('show'), 4000);
+            }
+        }
+
+        const soundFX = {
+            ctx: null,
+            init() {
+                if (!this.ctx) {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (AudioCtx) this.ctx = new AudioCtx();
+                }
+            },
+            playClick() {
+                if (!this.ctx) return;
+                try {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, this.ctx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                    gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.08);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 0.08);
+                } catch (e) { }
+            },
+            playChime() {
+                if (!this.ctx) return;
+                try {
+                    const freqs = [523.25, 659.25, 783.99, 1046.50];
+                    freqs.forEach((f, idx) => {
+                        const osc = this.ctx.createOscillator();
+                        const gain = this.ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(f, this.ctx.currentTime + idx * 0.06);
+                        gain.gain.setValueAtTime(0.1, this.ctx.currentTime + idx * 0.06);
+                        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + idx * 0.06 + 0.4);
+                        osc.connect(gain);
+                        gain.connect(this.ctx.destination);
+                        osc.start(this.ctx.currentTime + idx * 0.06);
+                        osc.stop(this.ctx.currentTime + idx * 0.06 + 0.4);
+                    });
+                } catch (e) { }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const btnInstallSlide = document.getElementById('btnInstallSlide');
+            if (btnInstallSlide) btnInstallSlide.addEventListener('click', triggerPWAInstall);
+
+            // 1-CLICK COPY LINK
+            const btnCopyLink = document.getElementById('btnCopyLink');
+            if (btnCopyLink) {
+                btnCopyLink.addEventListener('click', () => {
+                    soundFX.playChime();
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        toastMsg.textContent = "📋 ¡Enlace VIP copiado al portapapeles!";
+                        toastMsg.classList.add('show');
+                        setTimeout(() => toastMsg.classList.remove('show'), 2500);
+                    }).catch(() => {
+                        toastMsg.textContent = "📋 Enlace: " + window.location.href;
+                        toastMsg.classList.add('show');
+                        setTimeout(() => toastMsg.classList.remove('show'), 3000);
+                    });
+                });
+            }
+
+            // LIVE EXPECTANCY COUNTDOWN CLOCK TICKER
+            const startTime = Date.now();
+            function updateClock() {
+                const elapsedSecs = Math.floor((Date.now() - startTime) / 1000);
+                const hrs = String(Math.floor(elapsedSecs / 3600)).padStart(2, '0');
+                const mins = String(Math.floor((elapsedSecs % 3600) / 60)).padStart(2, '0');
+                const secs = String(elapsedSecs % 60).padStart(2, '0');
+
+                const clockHrs = document.getElementById('clockHrs');
+                const clockMin = document.getElementById('clockMin');
+                const clockSec = document.getElementById('clockSec');
+
+                if (clockHrs) clockHrs.textContent = hrs;
+                if (clockMin) clockMin.textContent = mins;
+                if (clockSec) clockSec.textContent = secs;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            const lockScreen = document.getElementById('lockScreen');
+            const btnUnlock = document.getElementById('btnUnlock');
+            const lockCrownBtn = document.getElementById('lockCrownBtn');
+            const bottomDock = document.getElementById('bottomDock');
+
+            function unlockApp() {
+                soundFX.init();
+                soundFX.playChime();
+                lockScreen.classList.add('unlocked');
+                bottomDock.classList.add('show');
+                toggleAudio();
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 90, spread: 80, origin: { y: 0.5 } });
+                }
+            }
+
+            btnUnlock.addEventListener('click', unlockApp);
+            lockCrownBtn.addEventListener('click', unlockApp);
+
+            const slides = document.querySelectorAll('.app-slide');
+            const dockItems = document.querySelectorAll('.dock-item');
+
+            function goToSlide(index) {
+                if (!maxUnlockedSlide[index]) {
+                    soundFX.init();
+                    soundFX.playClick();
+                    toastMsg.textContent = "🔒 Completa la pantalla actual para desbloquear esta pestaña";
+                    toastMsg.classList.add('show');
+                    setTimeout(() => toastMsg.classList.remove('show'), 2200);
+                    return;
+                }
+
+                soundFX.init();
+                soundFX.playClick();
+
+                slides.forEach((s, i) => {
+                    if (i === index) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+
+                dockItems.forEach((d, i) => {
+                    if (i === index) {
+                        d.classList.add('active');
+                    } else {
+                        d.classList.remove('active');
+                    }
+                });
+
+                if (index === 1) initScratch();
+                if (index === 2) startRouteAnimation();
+                if (index === 3) initTorchCanvas();
+            }
+
+            dockItems.forEach((item, index) => {
+                item.addEventListener('click', () => goToSlide(index));
+            });
+
+            const meshCanvas = document.getElementById('meshCanvas');
+            const mCtx = meshCanvas.getContext('2d');
+            let points = [];
+            let shootingStars = [];
+            let rainParticles = [];
+
+            function resizeMesh() {
+                meshCanvas.width = window.innerWidth;
+                meshCanvas.height = window.innerHeight;
+                initMesh();
+                initRain();
+            }
+
+            function initMesh() {
+                points = [];
+                const count = Math.floor((window.innerWidth * window.innerHeight) / 12000);
+                for (let i = 0; i < count; i++) {
+                    points.push({
+                        x: Math.random() * meshCanvas.width,
+                        y: Math.random() * meshCanvas.height,
+                        vx: (Math.random() - 0.5) * 0.4,
+                        vy: (Math.random() - 0.5) * 0.4,
+                        radius: Math.random() * 1.5 + 0.5
+                    });
+                }
+            }
+
+            function initRain() {
+                rainParticles = [];
+                const types = ['Sandrita', '💖', '💕', '✨', '⭐', 'Sandrita', 'Sandrita', '💖', '✨'];
+                const count = Math.floor((window.innerWidth * window.innerHeight) / 14000) + 30;
+                for (let i = 0; i < count; i++) {
+                    rainParticles.push({
+                        x: Math.random() * meshCanvas.width,
+                        y: Math.random() * meshCanvas.height,
+                        vy: Math.random() * 1.2 + 0.5,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        type: types[Math.floor(Math.random() * types.length)],
+                        size: Math.floor(Math.random() * 10 + 18),
+                        opacity: Math.random() * 0.35 + 0.45,
+                        color: Math.random() > 0.4 ? '#ffe29a' : '#ff6584'
+                    });
+                }
+            }
+
+            function addShootingStar() {
+                shootingStars.push({
+                    x: Math.random() * meshCanvas.width,
+                    y: Math.random() * (meshCanvas.height * 0.4),
+                    length: Math.random() * 80 + 40,
+                    speed: Math.random() * 6 + 4,
+                    angle: Math.PI / 4,
+                    opacity: 1
+                });
+            }
+
+            setInterval(() => {
+                if (isStarShowerActive || Math.random() < 0.3) {
+                    addShootingStar();
+                }
+            }, 2500);
+
+            function animateMesh() {
+                mCtx.clearRect(0, 0, meshCanvas.width, meshCanvas.height);
+
+                // DRAW ROMANTIC RAIN OF "SANDRITA", HEARTS & STARS
+                for (let i = 0; i < rainParticles.length; i++) {
+                    let r = rainParticles[i];
+                    r.y += r.vy;
+                    r.x += r.vx;
+
+                    if (r.y > meshCanvas.height + 30) {
+                        r.y = -30;
+                        r.x = Math.random() * meshCanvas.width;
+                    }
+                    if (r.x < -30) r.x = meshCanvas.width + 30;
+                    if (r.x > meshCanvas.width + 30) r.x = -30;
+
+                    mCtx.save();
+                    mCtx.globalAlpha = r.opacity;
+                    if (r.type === 'Sandrita') {
+                        mCtx.font = `600 ${r.size}px "Cormorant Garamond", serif`;
+                        mCtx.fillStyle = r.color;
+                        mCtx.shadowColor = r.color;
+                        mCtx.shadowBlur = 10;
+                        mCtx.fillText('Sandrita', r.x, r.y);
+                    } else {
+                        mCtx.font = `${r.size}px sans-serif`;
+                        mCtx.fillText(r.type, r.x, r.y);
+                    }
+                    mCtx.restore();
+                }
+
+                for (let i = 0; i < points.length; i++) {
+                    let p = points[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > meshCanvas.width) p.vx = -p.vx;
+                    if (p.y < 0 || p.y > meshCanvas.height) p.vy = -p.vy;
+
+                    mCtx.fillStyle = 'rgba(243, 208, 130, 0.6)';
+                    mCtx.beginPath();
+                    mCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    mCtx.fill();
+
+                    for (let j = i + 1; j < points.length; j++) {
+                        let p2 = points[j];
+                        let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                        if (dist < 110) {
+                            mCtx.strokeStyle = `rgba(243, 208, 130, ${0.15 * (1 - dist / 110)})`;
+                            mCtx.lineWidth = 0.5;
+                            mCtx.beginPath();
+                            mCtx.moveTo(p.x, p.y);
+                            mCtx.lineTo(p2.x, p2.y);
+                            mCtx.stroke();
+                        }
+                    }
+                }
+
+                for (let i = shootingStars.length - 1; i >= 0; i--) {
+                    let star = shootingStars[i];
+                    const tailX = star.x - Math.cos(star.angle) * star.length;
+                    const tailY = star.y - Math.sin(star.angle) * star.length;
+
+                    const grad = mCtx.createLinearGradient(star.x, star.y, tailX, tailY);
+                    grad.addColorStop(0, `rgba(255, 229, 163, ${star.opacity})`);
+                    grad.addColorStop(1, 'rgba(255, 77, 121, 0)');
+
+                    mCtx.strokeStyle = grad;
+                    mCtx.lineWidth = 2;
+                    mCtx.beginPath();
+                    mCtx.moveTo(star.x, star.y);
+                    mCtx.lineTo(tailX, tailY);
+                    mCtx.stroke();
+
+                    star.x += Math.cos(star.angle) * star.speed;
+                    star.y += Math.sin(star.angle) * star.speed;
+                    star.opacity -= 0.015;
+
+                    if (star.opacity <= 0 || star.x > meshCanvas.width || star.y > meshCanvas.height) {
+                        shootingStars.splice(i, 1);
+                    }
+                }
+
+                requestAnimationFrame(animateMesh);
+            }
+
+            window.addEventListener('resize', resizeMesh);
+            resizeMesh();
+            animateMesh();
+
+            const vinylWidget = document.getElementById('vinylWidget');
+            const vinylState = document.getElementById('vinylState');
+            const bgAudio = document.getElementById('bgAudio');
+            const lyricsLine = document.getElementById('lyricsLine');
+            let isPlaying = false;
+
+            const lyricLines = [
+                "✨ Creo en ti y en este amor que nació de la nada...",
+                "💖 No importa la distancia cuando las ganas de vernos son infinitas...",
+                "🎶 Cada día falta menos para nuestro reencuentro...",
+                "✨ Esta salida es una promesa que guardaré con mucho cariño..."
+            ];
+            let lyricIdx = 0;
+
+            setInterval(() => {
+                if (isPlaying && lyricsLine) {
+                    lyricIdx = (lyricIdx + 1) % lyricLines.length;
+                    lyricsLine.style.opacity = 0;
+                    setTimeout(() => {
+                        lyricsLine.textContent = lyricLines[lyricIdx];
+                        lyricsLine.style.opacity = 1;
+                    }, 400);
+                }
+            }, 5000);
+
+            function toggleAudio() {
+                soundFX.init();
+                soundFX.playClick();
+                if (isPlaying) {
+                    bgAudio.pause();
+                    vinylWidget.classList.remove('playing');
+                    vinylState.textContent = 'Música 🎵';
+                    isPlaying = false;
+                } else {
+                    bgAudio.play().then(() => {
+                        vinylWidget.classList.add('playing');
+                        vinylState.textContent = 'Creo en Ti 🎶';
+                        isPlaying = true;
+                        unlockSlide(3);
+                    }).catch(() => { });
+                }
+            }
+
+            vinylWidget.addEventListener('click', toggleAudio);
+
+            const mapSvgClick = document.getElementById('mapSvgClick');
+            if (mapSvgClick) {
+                mapSvgClick.addEventListener('click', () => unlockSlide(3));
+            }
+
+            const btnDailyThought = document.getElementById('btnDailyThought');
+            const dailyThoughtText = document.getElementById('dailyThoughtText');
+            const dailyQuotes = [
+                "✨ Sandrita, la distancia solo hace que el reencuentro sea diez veces más especial.",
+                "💖 Contando los días para ver esa sonrisa en persona...",
+                "☕ Hay pláticas que alegran el día, y las tuyas son mis favoritas.",
+                "🌟 Que nada detenga las ganas de compartir un buen momento juntos."
+            ];
+
+            btnDailyThought.addEventListener('click', () => {
+                soundFX.init();
+                soundFX.playChime();
+                const randomQuote = dailyQuotes[Math.floor(Math.random() * dailyQuotes.length)];
+                dailyThoughtText.style.opacity = 0;
+                setTimeout(() => {
+                    dailyThoughtText.textContent = randomQuote;
+                    dailyThoughtText.style.opacity = 1;
+                }, 300);
+            });
+
+            const btnNo = document.getElementById('btnNo');
+            const toastMsg = document.getElementById('toastMsg');
+            const toastPhrases = [
+                "¡El 'No' no es una opción aquí! 😉",
+                "¡Uy, casi! Pero sigue intentando 😜",
+                "¡Epa! Ese botón tiene vida propia...",
+                "¡Tu destino es presionar el 'Sí'! 💕"
+            ];
+            let toastTimeout = null;
+
+            function escapeNo() {
+                soundFX.init();
+                soundFX.playClick();
+                if (!btnNo.classList.contains('escaped')) {
+                    btnNo.classList.add('escaped');
+                }
+
+                const w = btnNo.offsetWidth;
+                const h = btnNo.offsetHeight;
+                const p = 25;
+
+                const maxX = window.innerWidth - w - p;
+                const maxY = window.innerHeight - h - p;
+                const minX = p;
+                const minY = p;
+
+                const randX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+                const randY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+                btnNo.style.left = `${randX}px`;
+                btnNo.style.top = `${randY}px`;
+
+                toastMsg.textContent = toastPhrases[Math.floor(Math.random() * toastPhrases.length)];
+                toastMsg.classList.add('show');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => toastMsg.classList.remove('show'), 2200);
+            }
+
+            btnNo.addEventListener('mouseenter', escapeNo);
+            btnNo.addEventListener('pointerover', escapeNo);
+            btnNo.addEventListener('touchstart', (e) => { e.preventDefault(); escapeNo(); });
+            btnNo.addEventListener('click', (e) => { e.preventDefault(); escapeNo(); });
+
+            const btnYes = document.getElementById('btnYes');
+            btnYes.addEventListener('click', () => {
+                unlockSlide(1);
+                goToSlide(1);
+            });
+
+            const scratchBox = document.getElementById('scratchBox');
+            const canvas = document.getElementById('scratchCanvas');
+            const ctx = canvas.getContext('2d', { willReadFrequently: true });
+            let isScratching = false;
+            let isCleared = false;
+
+            function initScratch() {
+                const rect = scratchBox.getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+
+                const grad = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+                grad.addColorStop(0, '#d4af37');
+                grad.addColorStop(0.3, '#fff2c2');
+                grad.addColorStop(0.7, '#aa7c11');
+                grad.addColorStop(1, '#f3d082');
+
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, rect.width, rect.height);
+
+                ctx.fillStyle = '#2a1f06';
+                ctx.font = '600 15px "Plus Jakarta Sans", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('✨ Raspa aquí suavemente con tu dedo o mouse ✨', rect.width / 2, rect.height / 2);
+            }
+
+            function scratch(e) {
+                if (!isScratching || isCleared) return;
+                e.preventDefault();
+
+                const rect = canvas.getBoundingClientRect();
+                let clientX = e.clientX;
+                let clientY = e.clientY;
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                }
+
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(x, y, 26, 0, Math.PI * 2);
+                ctx.fill();
+
+                checkScratchProgress();
+            }
+
+            function checkScratchProgress() {
+                if (isCleared) return;
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imgData.data;
+                let cleared = 0;
+                let total = 0;
+
+                for (let i = 3; i < pixels.length; i += 32) {
+                    total++;
+                    if (pixels[i] === 0) cleared++;
+                }
+
+                if ((cleared / total) * 100 >= 40) {
+                    isCleared = true;
+                    soundFX.playChime();
+                    canvas.classList.add('fade-out');
+                    setTimeout(() => {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        document.getElementById('vipTicket').classList.add('show');
+                    }, 500);
+
+                    unlockSlide(2);
+                }
+            }
+
+            canvas.addEventListener('mousedown', (e) => { isScratching = true; scratch(e); });
+            canvas.addEventListener('mousemove', scratch);
+            canvas.addEventListener('mouseup', () => isScratching = false);
+
+            canvas.addEventListener('touchstart', (e) => { isScratching = true; scratch(e); }, { passive: false });
+            canvas.addEventListener('touchmove', scratch, { passive: false });
+            canvas.addEventListener('touchend', () => isScratching = false);
+
+            function startRouteAnimation() {
+                const path = document.getElementById('routePath');
+                const heart = document.getElementById('travelHeart');
+                if (!path || !heart) return;
+
+                const pathLen = path.getTotalLength();
+                let progress = 0;
+
+                function animateRoute() {
+                    progress += 0.004;
+                    if (progress > 1) progress = 0;
+
+                    const point = path.getPointAtLength(progress * pathLen);
+                    heart.setAttribute('transform', `translate(${point.x}, ${point.y})`);
+                    requestAnimationFrame(animateRoute);
+                }
+
+                animateRoute();
+            }
+
+            const rouletteWheel = document.getElementById('rouletteWheel');
+            const btnSpin = document.getElementById('btnSpin');
+            let isSpinning = false;
+            let currentRotation = 0;
+            const promises = ["🍰 Postre gratis ilimitado", "🫂 Abrazo gigante de bienvenida", "🍷 Tú eliges el restaurante", "🍦 Helados & caminata", "📸 Sesión de fotos bonita", "🎶 Elegir la música del viaje"];
+
+            btnSpin.addEventListener('click', () => {
+                if (isSpinning) return;
+                isSpinning = true;
+                soundFX.init();
+                soundFX.playClick();
+
+                const extraDegrees = Math.floor(Math.random() * 360) + 1440;
+                currentRotation += extraDegrees;
+                rouletteWheel.style.transform = `rotate(${currentRotation}deg)`;
+
+                setTimeout(() => {
+                    isSpinning = false;
+                    soundFX.playChime();
+                    const normalizedDeg = (360 - (currentRotation % 360)) % 360;
+                    const index = Math.floor(normalizedDeg / 60);
+                    const wonPromise = promises[index];
+
+                    unlockSlide(4);
+
+                    toastMsg.textContent = `🎉 ¡Ganaste: ${wonPromise}! 🔓 Pestaña Plan desbloqueada`;
+                    toastMsg.classList.add('show');
+                    setTimeout(() => toastMsg.classList.remove('show'), 3500);
+                }, 4000);
+            });
+
+            const torchCanvas = document.getElementById('torchCanvas');
+            const tCtx = torchCanvas.getContext('2d');
+            let tRect;
+
+            function initTorchCanvas() {
+                tRect = document.getElementById('torchBox').getBoundingClientRect();
+                const dpr = window.devicePixelRatio || 1;
+                torchCanvas.width = tRect.width * dpr;
+                torchCanvas.height = tRect.height * dpr;
+                tCtx.scale(dpr, dpr);
+                drawTorchState(tRect.width / 2, tRect.height / 2);
+            }
+
+            function drawTorchState(x, y) {
+                const w = tRect.width;
+                const h = tRect.height;
+
+                tCtx.fillStyle = '#151024';
+                tCtx.fillRect(0, 0, w, h);
+
+                tCtx.fillStyle = '#f3d082';
+                tCtx.font = 'italic 17px "Cormorant Garamond", serif';
+                tCtx.textAlign = 'center';
+                tCtx.textBaseline = 'middle';
+                tCtx.fillText('✨ "Cada día falta menos para volver a verte..." ✨', w / 2, h / 2 - 15);
+                tCtx.fillStyle = '#ff4d79';
+                tCtx.font = '600 13px "Plus Jakarta Sans", sans-serif';
+                tCtx.fillText('Eres la razón de esta gran sonrisa. Att: Josman', w / 2, h / 2 + 18);
+
+                const darkCanvas = document.createElement('canvas');
+                darkCanvas.width = torchCanvas.width;
+                darkCanvas.height = torchCanvas.height;
+                const dCtx = darkCanvas.getContext('2d');
+                const dpr = window.devicePixelRatio || 1;
+                dCtx.scale(dpr, dpr);
+
+                dCtx.fillStyle = '#0b0914';
+                dCtx.fillRect(0, 0, w, h);
+
+                dCtx.globalCompositeOperation = 'destination-out';
+                const grad = dCtx.createRadialGradient(x, y, 10, x, y, 65);
+                grad.addColorStop(0, 'rgba(0,0,0,1)');
+                grad.addColorStop(1, 'rgba(0,0,0,0)');
+                dCtx.fillStyle = grad;
+                dCtx.beginPath();
+                dCtx.arc(x, y, 65, 0, Math.PI * 2);
+                dCtx.fill();
+
+                tCtx.drawImage(darkCanvas, 0, 0, w, h);
+            }
+
+            function moveTorch(e) {
+                if (!tRect) return;
+                let clientX = e.clientX;
+                let clientY = e.clientY;
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                }
+                const x = clientX - tRect.left;
+                const y = clientY - tRect.top;
+                drawTorchState(x, y);
+            }
+
+            torchCanvas.addEventListener('mousemove', moveTorch);
+            torchCanvas.addEventListener('touchmove', moveTorch, { passive: true });
+
+            const btnDownloadTicket = document.getElementById('btnDownloadTicket');
+            btnDownloadTicket.addEventListener('click', () => {
+                soundFX.playChime();
+                const ticketCanvas = document.createElement('canvas');
+                ticketCanvas.width = 600;
+                ticketCanvas.height = 360;
+                const tcCtx = ticketCanvas.getContext('2d');
+
+                const grad = tcCtx.createLinearGradient(0, 0, 600, 360);
+                grad.addColorStop(0, '#1f1833');
+                grad.addColorStop(1, '#0d0a17');
+                tcCtx.fillStyle = grad;
+                tcCtx.fillRect(0, 0, 600, 360);
+
+                tcCtx.strokeStyle = '#f3d082';
+                tcCtx.lineWidth = 4;
+                tcCtx.strokeRect(15, 15, 570, 330);
+
+                tcCtx.fillStyle = '#f3d082';
+                tcCtx.font = 'bold 22px "Cinzel", serif';
+                tcCtx.fillText('🎟️ VIP BOARDING PASS', 40, 55);
+
+                tcCtx.fillStyle = '#b8b0ca';
+                tcCtx.font = '12px "Plus Jakarta Sans", sans-serif';
+                tcCtx.fillText('EDICIÓN ESPECIAL', 40, 75);
+
+                tcCtx.fillStyle = '#ffffff';
+                tcCtx.font = '16px "Plus Jakarta Sans", sans-serif';
+                tcCtx.fillText('Ruta: Piura ↔ Chiclayo', 40, 130);
+                tcCtx.fillText('Anfitrión: Josman', 40, 170);
+                tcCtx.fillText('Estado: Confirmado ✨', 40, 210);
+                tcCtx.fillText('Código VIP: #JL-2026-VIP', 40, 250);
+
+                tcCtx.fillStyle = '#ff4d79';
+                tcCtx.font = 'italic 15px "Cormorant Garamond", serif';
+                tcCtx.fillText('¡Promesa de salida 100% oficial para Sandrita!', 40, 310);
+
+                tcCtx.fillStyle = '#ffffff';
+                tcCtx.fillRect(480, 35, 80, 80);
+                tcCtx.fillStyle = '#120e1e';
+                tcCtx.fillRect(488, 43, 22, 22);
+                tcCtx.fillRect(530, 43, 22, 22);
+                tcCtx.fillRect(488, 85, 22, 22);
+                tcCtx.fillStyle = '#d4af37';
+                tcCtx.fillRect(495, 50, 8, 8);
+                tcCtx.fillRect(537, 50, 8, 8);
+                tcCtx.fillRect(495, 92, 8, 8);
+
+                const link = document.createElement('a');
+                link.download = 'ticket-cita-sandrita-josman.png';
+                link.href = ticketCanvas.toDataURL('image/png');
+                link.click();
+            });
+
+            const envelopeWrapper = document.getElementById('envelopeWrapper');
+            envelopeWrapper.addEventListener('click', () => {
+                soundFX.playChime();
+                envelopeWrapper.classList.toggle('open');
+                unlockSlide(5);
+            });
+
+            const chips = document.querySelectorAll('.luxury-chip');
+            const btnWhatsapp = document.getElementById('btnWhatsapp');
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    soundFX.playClick();
+                    chip.classList.toggle('selected');
+                    updateWa();
+                    unlockSlide(5);
+                });
+            });
+
+            function updateWa() {
+                const plans = [];
+                chips.forEach(c => {
+                    if (c.classList.contains('selected')) plans.push(c.getAttribute('data-plan'));
+                });
+                const planStr = plans.length ? `%0A%0AMi%20plan%20ideal:%0A-%20` + plans.join("%0A-%20") : "%0A%0A(¡Te%20dejo%20a%20ti%20sorprenderme!)";
+                const targetPhone = CONFIG.whatsappNumber ? CONFIG.whatsappNumber.replace(/[^0-9]/g, '') : '';
+                const phoneQuery = targetPhone ? `phone=${targetPhone}&` : '';
+
+                btnWhatsapp.href = `https://api.whatsapp.com/send?${phoneQuery}text=¡Hola%20Josman!%20Soy%20Sandrita%20y%20ACEPTÉ%20salir%20contigo%20la%20próxima%20vez%20que%20nos%20veamos%20💖.${planStr}%0A%0A¡Prometido!%20✨`;
+            }
+            updateWa();
+        });
+    </script>
+</body>
+
+</html>
